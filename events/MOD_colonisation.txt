@@ -1,0 +1,124 @@
+﻿###########################
+# Colonisation Events
+###########################
+
+add_namespace = MOD_colonisation
+
+# start colonisation border war
+country_event = {
+	id = MOD_colonisation.1
+	title = MOD_colonisation.1.t
+	desc = MOD_colonisation.1.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		any_owned_state = {
+			any_neighbor_state = {
+				is_owned_by = TAG
+			}
+		}
+		NOT = { tag = TAG }
+		NOT = {
+			any_owned_state = {
+				is_border_conflict = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+
+	option = { 	
+		name = MOD_colonisation.1.a
+		random_owned_state = {
+			limit = {
+				any_neighbor_state = {
+					is_owned_by = TAG
+				}
+			}
+			set_border_war = yes
+			random_neighbor_state = {
+				limit = {
+					is_owned_by = TAG
+				}
+				add_claim_by = ROOT
+			}
+		}
+	}
+}
+
+country_event = {
+	id = MOD_colonisation.2
+	title = MOD_colonisation.2.t
+	desc = MOD_colonisation.2.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		any_owned_state = {
+			is_border_conflict = yes
+			any_neighbor_state = {
+				is_owned_by = TAG
+				is_claimed_by = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		name = MOD_colonisation.2.a
+		random_state = {
+			limit = {
+				is_owned_by = TAG
+				is_claimed_by = ROOT
+				any_neighbor_state = {
+					is_owned_by = ROOT
+					is_border_conflict = yes
+				}
+			}
+			ROOT = { transfer_state = PREV }
+		}
+	}
+}
+
+country_event = {
+	id = MOD_colonisation.3
+	title = MOD_colonisation.3.t
+	desc = MOD_colonisation.3.d
+	picture = GFX_report_event_polish_tanks_01
+	
+	trigger = {
+		any_owned_state = {
+			is_border_conflict = yes
+			NOT = {
+				any_neighbor_state = {
+					is_owned_by = TAG
+					is_claimed_by = ROOT
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+	}
+	
+	option = {
+		name = MOD_colonisation.3.a
+		random_owned_state = {
+			limit = {
+				is_border_conflict = yes
+				NOT = {
+					any_neighbor_state = {
+						is_owned_by = TAG
+						is_claimed_by = ROOT
+					}
+				}
+			}
+			set_border_war = no
+		}
+	}
+}
